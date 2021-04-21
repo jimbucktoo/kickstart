@@ -52,7 +52,7 @@ class ContributeForm extends Component {
                     content={this.state.errorMessage}
                 />
                 <Button primary loading={this.state.loading}>
-                    Contribute!
+                    Contribute
                 </Button>
             </Form>
         );
