@@ -3,6 +3,7 @@ import { Card, Button } from "semantic-ui-react";
 import factory from "../ethereum/factory";
 import Layout from "../components/Layout";
 import { Link } from "../routes";
+import Head from "next/head";
 
 class CampaignIndex extends Component {
     static async getInitialProps() {
@@ -29,23 +30,30 @@ class CampaignIndex extends Component {
 
     render() {
         return (
-            <Layout>
-                <div>
-                    <h3>Campaigns</h3>
-                    <Link route="/campaigns/new">
-                        <a>
-                            <Button
-                                floated="right"
-                                content="Create Campaign"
-                                icon="add circle"
-                                primary
-                            />
-                        </a>
-                    </Link>
+            <div className="container">
+                <Head>
+                    <title>CrowdCoin | Blockchain Kickstarter</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
 
-                    {this.renderCampaigns()}
-                </div>
-            </Layout>
+                <Layout>
+                    <div>
+                        <h3>Campaigns</h3>
+                        <Link route="/campaigns/new">
+                            <a>
+                                <Button
+                                    floated="right"
+                                    content="Create Campaign"
+                                    icon="add circle"
+                                    primary
+                                />
+                            </a>
+                        </Link>
+
+                        {this.renderCampaigns()}
+                    </div>
+                </Layout>
+            </div>
         );
     }
 }
