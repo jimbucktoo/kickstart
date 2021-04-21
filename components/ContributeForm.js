@@ -11,9 +11,29 @@ class ContributeForm extends Component {
         loading: false,
     };
 
+    onSubmit = async (event) => {
+        event.preventDefault();
+        console.log(this.props.address);
+        const campaign = Campaign(this.props.address);
+        this.setState({ loading: true, errorMessage: "" });
+
+        try {
+            const accounts = await web3.eth.getAccounts();
+            await campaign.methods.contribute().send({
+                from: accounts[0],
+                value: web3.utils.toWei(this.state.value, "ether"),
+            });
+            Router.replaceRoute(`/campaigns/${this.props.address}`);
+        } catch (err) {
+            this.setState({ errorMessage: err.message });
+        }
+
+        this.setState({ loading: false, value: "" });
+    };
+
     render() {
         return (
-            <Form>
+            <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
                 <Form.Field>
                     <label>Amount to Contribute</label>
                     <Input
