@@ -4,6 +4,7 @@ import { Form, Button, Input, Message } from "semantic-ui-react";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
 import { Router } from "../../routes";
+import Head from "next/head";
 
 class CampaignNew extends Component {
     state = {
@@ -34,37 +35,43 @@ class CampaignNew extends Component {
     };
 
     render() {
-        console.log(this.state);
         return (
-            <Layout>
-                <h3>Create A Campaign</h3>
-                <Form
-                    onSubmit={this.onSubmit}
-                    error={!!this.state.errorMessage}
-                >
-                    <Form.Field>
-                        <label>Minimum Contribution</label>
-                        <Input
-                            label="wei"
-                            labelPosition="right"
-                            value={this.state.minimumContribution}
-                            onChange={(event) =>
-                                this.setState({
-                                    minimumContribution: event.target.value,
-                                })
-                            }
-                        />
-                    </Form.Field>
-                    <Message
-                        error
-                        headers="Oops!"
-                        content={this.state.errorMessage}
-                    ></Message>
-                    <Button loading={this.state.loading} primary>
-                        Create
-                    </Button>
-                </Form>
-            </Layout>
+            <div className="container">
+                <Head>
+                    <title>CrowdCoin | Blockchain Kickstarter</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+
+                <Layout>
+                    <h3>Create A Campaign</h3>
+                    <Form
+                        onSubmit={this.onSubmit}
+                        error={!!this.state.errorMessage}
+                    >
+                        <Form.Field>
+                            <label>Minimum Contribution</label>
+                            <Input
+                                label="wei"
+                                labelPosition="right"
+                                value={this.state.minimumContribution}
+                                onChange={(event) =>
+                                    this.setState({
+                                        minimumContribution: event.target.value,
+                                    })
+                                }
+                            />
+                        </Form.Field>
+                        <Message
+                            error
+                            headers="Oops!"
+                            content={this.state.errorMessage}
+                        ></Message>
+                        <Button loading={this.state.loading} primary>
+                            Create
+                        </Button>
+                    </Form>
+                </Layout>
+            </div>
         );
     }
 }

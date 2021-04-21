@@ -5,14 +5,13 @@ import SmartCampaign from "../../ethereum/campaign";
 import web3 from "../../ethereum/web3";
 import ContributeForm from "../../components/ContributeForm";
 import { Link } from "../../routes";
+import Head from "next/head";
 
 class CampaignShow extends Component {
     static async getInitialProps(props) {
         const campaign = SmartCampaign(props.query.address);
 
         const summary = await campaign.methods.getSummary().call();
-
-        console.log(summary);
 
         return {
             address: props.query.address,
@@ -32,8 +31,6 @@ class CampaignShow extends Component {
             requestsCount,
             approversCount,
         } = this.props;
-
-        console.log(this.props);
 
         const items = [
             {
@@ -74,32 +71,39 @@ class CampaignShow extends Component {
 
     render() {
         return (
-            <Layout>
-                <h3>Campaign - {this.props.address}</h3>
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column width={10}>
-                            {this.renderCards()}
-                        </Grid.Column>
+            <div className="container">
+                <Head>
+                    <title>CrowdCoin | Blockchain Kickstarter</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
 
-                        <Grid.Column width={6}>
-                            <ContributeForm address={this.props.address} />
-                        </Grid.Column>
-                    </Grid.Row>
+                <Layout>
+                    <h3>Campaign - {this.props.address}</h3>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column width={10}>
+                                {this.renderCards()}
+                            </Grid.Column>
 
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Link
-                                route={`/campaigns/${this.props.address}/requests`}
-                            >
-                                <a>
-                                    <Button primary>View Requests</Button>
-                                </a>
-                            </Link>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </Layout>
+                            <Grid.Column width={6}>
+                                <ContributeForm address={this.props.address} />
+                            </Grid.Column>
+                        </Grid.Row>
+
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Link
+                                    route={`/campaigns/${this.props.address}/requests`}
+                                >
+                                    <a>
+                                        <Button primary>View Requests</Button>
+                                    </a>
+                                </Link>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Layout>
+            </div>
         );
     }
 }

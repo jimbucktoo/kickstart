@@ -4,6 +4,7 @@ import { Link } from "../../../routes";
 import Layout from "../../../components/Layout";
 import Campaign from "../../../ethereum/campaign";
 import RequestRow from "../../../components/RequestRow";
+import Head from "next/head";
 
 class RequestIndex extends Component {
     static async getInitialProps(props) {
@@ -41,35 +42,44 @@ class RequestIndex extends Component {
         const { Header, Row, HeaderCell, Body } = Table;
 
         return (
-            <Layout>
-                <h3>Requests</h3>
-                <Link route={`/campaigns/${this.props.address}/requests/new`}>
-                    <a>
-                        <Button
-                            primary
-                            floated="right"
-                            style={{ marginBottom: 10 }}
-                        >
-                            Add Request
-                        </Button>
-                    </a>
-                </Link>
-                <Table>
-                    <Header>
-                        <Row>
-                            <HeaderCell>ID</HeaderCell>
-                            <HeaderCell>Description</HeaderCell>
-                            <HeaderCell>Amount</HeaderCell>
-                            <HeaderCell>Recipient</HeaderCell>
-                            <HeaderCell>Approval Count</HeaderCell>
-                            <HeaderCell>Approve</HeaderCell>
-                            <HeaderCell>Finalize</HeaderCell>
-                        </Row>
-                    </Header>
-                    <Body>{this.renderRows()}</Body>
-                </Table>
-                <div>Found {this.props.requestCount} requests.</div>
-            </Layout>
+            <div className="container">
+                <Head>
+                    <title>CrowdCoin | Blockchain Kickstarter</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+
+                <Layout>
+                    <h3>Requests</h3>
+                    <Link
+                        route={`/campaigns/${this.props.address}/requests/new`}
+                    >
+                        <a>
+                            <Button
+                                primary
+                                floated="right"
+                                style={{ marginBottom: 10 }}
+                            >
+                                Add Request
+                            </Button>
+                        </a>
+                    </Link>
+                    <Table>
+                        <Header>
+                            <Row>
+                                <HeaderCell>ID</HeaderCell>
+                                <HeaderCell>Description</HeaderCell>
+                                <HeaderCell>Amount</HeaderCell>
+                                <HeaderCell>Recipient</HeaderCell>
+                                <HeaderCell>Approval Count</HeaderCell>
+                                <HeaderCell>Approve</HeaderCell>
+                                <HeaderCell>Finalize</HeaderCell>
+                            </Row>
+                        </Header>
+                        <Body>{this.renderRows()}</Body>
+                    </Table>
+                    <div>Found {this.props.requestCount} requests.</div>
+                </Layout>
+            </div>
         );
     }
 }
